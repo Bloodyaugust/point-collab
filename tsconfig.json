@@ -10,7 +10,7 @@
       "@hooks/*": ["src/hooks/*"],
       "@layouts/*": ["src/layouts/*"],
       "@lib/*": ["src/lib/*"],
-      "@types/*": ["src/types/*"]
+      "@projectTypes/*": ["src/types/*"]
     }
   }
 }

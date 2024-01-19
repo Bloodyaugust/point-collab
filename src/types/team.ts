@@ -1,6 +1,6 @@
-import type { TeamState } from "./teamState";
+import type { TeamState } from './teamState';
 
-type Team = {
+export type Team = {
   id: string;
   name: string;
   state: TeamState;
@@ -9,5 +9,3 @@ type Team = {
   history: object;
   adminClientID: string;
 };
-
-export type { Team };

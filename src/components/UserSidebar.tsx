@@ -1,12 +1,17 @@
-import { useContext } from "react";
-import { TeamContext } from "../contexts/TeamContext";
+import { useContext } from 'react';
+
+import { TeamContext } from '../contexts/TeamContext';
 
 export default function UserSidebar() {
-  const { teamID } = useContext(TeamContext);
+  const { team } = useContext(TeamContext);
 
-  if (!teamID) {
+  if (!team) {
     return <span>Waiting for a team to be joined...</span>;
   }
 
-  return <span>Team ID: {teamID}</span>;
+  return (
+    <span>
+      Team: {team.name}({team.id})
+    </span>
+  );
 }

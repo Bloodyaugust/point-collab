@@ -1,6 +1,4 @@
-enum TeamState {
+export enum TeamState {
   POINTING,
   REVEALED,
 }
-
-export { TeamState };

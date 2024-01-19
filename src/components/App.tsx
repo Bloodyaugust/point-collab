@@ -41,7 +41,7 @@ export default function App() {
   }
 
   return (
-    <TeamContextComponent>
+    <TeamContextComponent clientID={clientID} clientName={name}>
       <div className={styles.container}>
         <div className={styles.content}>
           {name ? (
