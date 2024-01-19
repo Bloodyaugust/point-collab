@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useState } from 'react';
 
+import AdminSidebar from '@components/AdminSidebar';
 import TeamChooser from '@components/TeamChooser';
 import UserSidebar from '@components/UserSidebar';
 import TeamContextComponent from '@contexts/TeamContext';
@@ -56,7 +57,8 @@ export default function App() {
           <TeamChooser clientID={clientID} />
         </div>
         <div className={styles.sidebar}>
-          <UserSidebar />
+          <UserSidebar clientID={clientID} />
+          <AdminSidebar clientID={clientID} />
         </div>
       </div>
     </TeamContextComponent>

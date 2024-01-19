@@ -2,11 +2,15 @@ import { useContext } from 'react';
 
 import { TeamContext } from '../contexts/TeamContext';
 
-export default function UserSidebar() {
+type Props = {
+  clientID: string;
+};
+
+export default function UserSidebar({ clientID }: Props) {
   const { team } = useContext(TeamContext);
 
-  if (!team) {
-    return <span>Waiting for a team to be joined...</span>;
+  if (!team || team.adminClientID === clientID) {
+    return undefined;
   }
 
   return (

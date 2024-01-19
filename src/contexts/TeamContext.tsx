@@ -8,7 +8,6 @@ import {
 
 import useTeamID from '@hooks/UseTeamID';
 import pocketBase from '@lib/pocketbase';
-import { type Message, MessageTypes } from '@projectTypes/message';
 import { type Team } from '@projectTypes/team';
 
 type ContextType = {
@@ -44,20 +43,18 @@ export default function TeamContextComponent({
           .collection('teams')
           .getOne(teamID)) as Team;
 
-        const joinMessage: Message = {
-          team: newTeam.id,
-          type: MessageTypes.JOIN,
-          message: { name: clientName },
-          clientID,
-        };
-        await pocketBase.collection('messages').create(joinMessage);
+        pocketBase.collection('teams').subscribe(newTeam.id, (data) => {
+          setTeam(data.record as unknown as Team);
+        });
 
         setTeam(newTeam);
       } catch {
+        pocketBase.collection('teams').unsubscribe();
         setTeamID(null);
         setTeam(null);
       }
     } else {
+      pocketBase.collection('teams').unsubscribe();
       setTeam(null);
     }
   }, [teamID]);

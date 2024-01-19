@@ -1,18 +1,21 @@
 .container {
   display: grid;
   grid-area: content;
-  grid-template-areas: 
-  "content content sidebar"
-  "content content sidebar"
-  "content content sidebar";
+  grid-template-areas:
+    'content content sidebar'
+    'content content sidebar'
+    'content content sidebar';
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .content {
   border: 1px solid red;
   grid-area: content;
+  padding: 1rem;
 }
 
 .sidebar {
   border: 1px solid green;
   grid-area: sidebar;
+  padding: 1rem;
 }
