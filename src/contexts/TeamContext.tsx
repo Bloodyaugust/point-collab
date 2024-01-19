@@ -9,17 +9,22 @@ import {
 import useTeamID from '@hooks/UseTeamID';
 import pocketBase from '@lib/pocketbase';
 import { type Team } from '@projectTypes/team';
+import type { UserState } from '@projectTypes/userState';
 
 type ContextType = {
+  clientUserState: UserState | null;
   setTeamID: (teamID: string) => void;
   teamID: string | null;
   team: Team | null;
+  userStates: UserState[];
 };
 
 const TeamContext = createContext<ContextType>({
+  clientUserState: null,
   setTeamID: () => {},
   teamID: null,
   team: null,
+  userStates: [],
 });
 
 type Props = {
@@ -35,6 +40,10 @@ export default function TeamContextComponent({
 }: Props) {
   const { teamID, setTeamID } = useTeamID();
   const [team, setTeam] = useState<Team | null>(null);
+  const [clientUserState, setClientUserState] = useState<UserState | null>(
+    null,
+  );
+  const [userStates, setUserStates] = useState<UserState[]>([]);
 
   const fetchTeam = useCallback(async () => {
     if (teamID) {
@@ -47,14 +56,73 @@ export default function TeamContextComponent({
           setTeam(data.record as unknown as Team);
         });
 
+        let hydratedUserStates: UserState[] = [];
+        if (newTeam.adminClientID !== clientID) {
+          let newUserState: UserState | null = null;
+
+          try {
+            newUserState = (await pocketBase
+              .collection('user_states')
+              .getFirstListItem(`clientID="${clientID}"`)) as UserState;
+
+            newUserState = (await pocketBase
+              .collection('user_states')
+              .update(newUserState.id, {
+                hasPointed: false,
+                pointSelected: 0,
+                name: clientName,
+              })) as UserState;
+          } catch {
+            newUserState = (await pocketBase.collection('user_states').create({
+              clientID,
+              name: clientName,
+              team: teamID,
+            })) as UserState;
+          }
+
+          hydratedUserStates.push(newUserState);
+          setClientUserState(newUserState);
+        }
+
+        const fetchedUserStates = (await pocketBase
+          .collection('user_states')
+          .getFullList()) as UserState[];
+        hydratedUserStates = [...hydratedUserStates, ...fetchedUserStates];
+
+        setUserStates(hydratedUserStates);
+
+        pocketBase.collection('user_states').subscribe(
+          '*',
+          (data) => {
+            const dataUserState: UserState =
+              data.record as unknown as UserState;
+
+            setUserStates((currentUserStates) => [
+              ...currentUserStates.filter(
+                (state) => state.clientID !== dataUserState.clientID,
+              ),
+              dataUserState,
+            ]);
+          },
+          {
+            filter: `team = '${teamID}'`,
+          },
+        );
+
         setTeam(newTeam);
-      } catch {
+      } catch (error) {
         pocketBase.collection('teams').unsubscribe();
+        pocketBase.collection('user_states').unsubscribe();
+        setClientUserState(null);
+        setUserStates([]);
         setTeamID(null);
         setTeam(null);
       }
     } else {
       pocketBase.collection('teams').unsubscribe();
+      pocketBase.collection('user_states').unsubscribe();
+      setClientUserState(null);
+      setUserStates([]);
       setTeam(null);
     }
   }, [teamID]);
@@ -64,7 +132,9 @@ export default function TeamContextComponent({
   }, [fetchTeam]);
 
   return (
-    <TeamContext.Provider value={{ team, teamID, setTeamID }}>
+    <TeamContext.Provider
+      value={{ clientUserState, team, teamID, setTeamID, userStates }}
+    >
       {children}
     </TeamContext.Provider>
   );

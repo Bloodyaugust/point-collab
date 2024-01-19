@@ -14,8 +14,11 @@ export default function UserSidebar({ clientID }: Props) {
   }
 
   return (
-    <span>
-      Team: {team.name}({team.id})
-    </span>
+    <div>
+      <span>
+        Team: {team.name}({team.id})
+      </span>
+      <span>Team State: {team.state}</span>
+    </div>
   );
 }

@@ -21,7 +21,7 @@ function mapTeamStateToMessage(teamState: TeamState) {
 }
 
 export default function AdminSidebar({ clientID }: Props) {
-  const { team } = useContext(TeamContext);
+  const { team, userStates } = useContext(TeamContext);
 
   const handleShowPoints = useCallback(async () => {
     if (team) {
@@ -53,6 +53,16 @@ export default function AdminSidebar({ clientID }: Props) {
       ) : (
         <button onClick={handleStartPointing}>Start Pointing</button>
       )}
+      <hr />
+      <h3>Users</h3>
+      <div className={styles.userStates}>
+        {userStates.map((userState) => (
+          <span key={userState.id}>
+            {userState.name}: {userState.pointSelected} - (hasPointed:{' '}
+            {userState.hasPointed ? 'true' : 'false'})
+          </span>
+        ))}
+      </div>
     </div>
   );
 }

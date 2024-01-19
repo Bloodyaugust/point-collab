@@ -2,8 +2,22 @@ h2 {
   margin: 0;
 }
 
+h3 {
+  margin: 0;
+}
+
+hr {
+  width: 100%;
+}
+
 .container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+}
+
+.userStates {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
