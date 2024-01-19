@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import App from "../components/App";
+---
+
+<Layout
+  title="Point Collab"
+  description="A multiplayer app for pointing stories"
+>
+  <main>
+    <div class="header">
+      <h1>Point Collab</h1>
+    </div>
+    <App client:idle />
+  </main>
+</Layout>
+
+<style>
+  h1 {
+    color: white;
+  }
+
+  main {
+    display: grid;
+    grid-template-areas:
+      "header header header"
+      "content content content"
+      "content content content"
+      "content content content";
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    grid-area: header;
+  }
+</style>
