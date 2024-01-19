@@ -3,6 +3,9 @@ import useName from "../hooks/UseName";
 import styles from "./App.module.css";
 import { useState } from "react";
 import useClientID from "../hooks/UseClientID";
+import TeamContextComponent from "../contexts/TeamContext";
+import TeamChooser from "./TeamChooser";
+import UserSidebar from "./UserSidebar";
 
 export default function App() {
   const { name, setName } = useName();
@@ -18,22 +21,29 @@ export default function App() {
     setNewName("");
   };
 
+  if (!clientID) {
+    return <span>Loading...</span>;
+  }
+
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        {name ? (
-          <span>Hello {name}!</span>
-        ) : (
-          <>
-            <label>Name: </label>
-            <input onChange={handleNameChange} />
-            <button onClick={handleNameSubmit}>Submit</button>
-          </>
-        )}
+    <TeamContextComponent>
+      <div className={styles.container}>
+        <div className={styles.content}>
+          {name ? (
+            <span>Hello {name}!</span>
+          ) : (
+            <>
+              <label>Name: </label>
+              <input onChange={handleNameChange} />
+              <button onClick={handleNameSubmit}>Submit</button>
+            </>
+          )}
+          <TeamChooser clientID={clientID} />
+        </div>
+        <div className={styles.sidebar}>
+          <UserSidebar />
+        </div>
       </div>
-      <div className={styles.sidebar}>
-        <span>Hello Sidebar!</span>
-      </div>
-    </div>
+    </TeamContextComponent>
   );
 }

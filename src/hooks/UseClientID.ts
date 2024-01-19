@@ -4,12 +4,14 @@ export default function useClientID() {
   const [clientID, setClientID] = useState<string | null>(null);
 
   useEffect(() => {
-    const clientID: string | null = localStorage.getItem("clientID");
+    const loadedClientID: string | null = localStorage.getItem("clientID");
 
-    if (!clientID) {
+    if (!loadedClientID) {
       const newClientID = crypto.randomUUID();
       setClientID(newClientID);
       localStorage.setItem("clientID", newClientID);
+    } else {
+      setClientID(loadedClientID);
     }
   }, []);
 
