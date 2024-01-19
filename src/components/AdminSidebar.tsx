@@ -21,20 +21,12 @@ function mapTeamStateToMessage(teamState: TeamState) {
 }
 
 export default function AdminSidebar({ clientID }: Props) {
-  const { team, userStates } = useContext(TeamContext);
+  const { team, userStates, startPointing } = useContext(TeamContext);
 
   const handleShowPoints = useCallback(async () => {
     if (team) {
       await pocketBase.collection('teams').update(team.id, {
         state: TeamState.REVEALED,
-      });
-    }
-  }, [team]);
-
-  const handleStartPointing = useCallback(async () => {
-    if (team) {
-      await pocketBase.collection('teams').update(team.id, {
-        state: TeamState.POINTING,
       });
     }
   }, [team]);
@@ -51,7 +43,7 @@ export default function AdminSidebar({ clientID }: Props) {
       {team.state === TeamState.POINTING ? (
         <button onClick={handleShowPoints}>Show Points</button>
       ) : (
-        <button onClick={handleStartPointing}>Start Pointing</button>
+        <button onClick={startPointing}>Start Pointing</button>
       )}
       <hr />
       <h3>Users</h3>

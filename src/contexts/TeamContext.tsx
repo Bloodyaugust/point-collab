@@ -9,11 +9,13 @@ import {
 import useTeamID from '@hooks/UseTeamID';
 import pocketBase from '@lib/pocketbase';
 import { type Team } from '@projectTypes/team';
+import { TeamState } from '@projectTypes/teamState';
 import type { UserState } from '@projectTypes/userState';
 
 type ContextType = {
   clientUserState: UserState | null;
   setTeamID: (teamID: string) => void;
+  startPointing: () => void;
   teamID: string | null;
   team: Team | null;
   userStates: UserState[];
@@ -22,6 +24,7 @@ type ContextType = {
 const TeamContext = createContext<ContextType>({
   clientUserState: null,
   setTeamID: () => {},
+  startPointing: () => {},
   teamID: null,
   team: null,
   userStates: [],
@@ -127,13 +130,36 @@ export default function TeamContextComponent({
     }
   }, [teamID]);
 
+  const startPointing = useCallback(async () => {
+    if (team) {
+      await pocketBase.collection('teams').update(team.id, {
+        state: TeamState.POINTING,
+      });
+
+      await Promise.all(
+        userStates.map(async (userState) => {
+          await pocketBase.collection('user_states').update(userState.id, {
+            hasPointed: false,
+          });
+        }),
+      );
+    }
+  }, [team, userStates]);
+
   useEffect(() => {
     fetchTeam();
   }, [fetchTeam]);
 
   return (
     <TeamContext.Provider
-      value={{ clientUserState, team, teamID, setTeamID, userStates }}
+      value={{
+        clientUserState,
+        team,
+        teamID,
+        setTeamID,
+        startPointing,
+        userStates,
+      }}
     >
       {children}
     </TeamContext.Provider>
