@@ -1,0 +1,29 @@
+.button {
+  background-color: var(--orange-300);
+  border-radius: 5px;
+  border: 0;
+  color: white;
+  cursor: pointer;
+  font-family: 'Bellota Text', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 10px 16px;
+}
+
+.buttonSmall {
+  width: fit-content;
+}
+
+.inputText {
+  background: white;
+  border-radius: 5px;
+  border: 1px solid var(--orange-200);
+  color: var(--orange-300);
+  font-family: 'Bellota Text', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  padding: 10px 16px;
+}
+.inputText::placeholder {
+  color: var(--orange-400);
+}

@@ -1,9 +1,8 @@
-import { useCallback, useContext } from 'react';
+import clsx from 'clsx';
+import { useContext, useRef, useState } from 'react';
 
-import Users from '@components/sidebar/Users';
+import sharedStyles from '@components/SharedStyles.module.css';
 import { TeamContext } from '@contexts/TeamContext';
-import pocketBase from '@lib/pocketbase';
-import { TeamState } from '@projectTypes/teamState';
 
 import styles from './AdminSidebar.module.css';
 
@@ -11,26 +10,11 @@ type Props = {
   clientID: string;
 };
 
-function mapTeamStateToMessage(teamState: TeamState) {
-  switch (teamState) {
-    case TeamState.POINTING:
-      return 'Click the "Show Points" button to reveal points!';
-
-    default:
-      return 'Pointing complete! Click "Start Pointing" to begin the next story.';
-  }
-}
-
 export default function AdminSidebar({ clientID }: Props) {
-  const { team, startPointing } = useContext(TeamContext);
+  const { team, setStoryID } = useContext(TeamContext);
 
-  const handleShowPoints = useCallback(async () => {
-    if (team) {
-      await pocketBase.collection('teams').update(team.id, {
-        state: TeamState.REVEALED,
-      });
-    }
-  }, [team]);
+  const [newStoryId, setNewStoryID] = useState<string | null>(null);
+  const storyIDRef = useRef<HTMLInputElement>(null);
 
   if (!team || team.adminClientID !== clientID) {
     return undefined;
@@ -39,15 +23,34 @@ export default function AdminSidebar({ clientID }: Props) {
   return (
     <div className={styles.container}>
       <h2>{team.name}</h2>
-      <span>Team ID: {team.id}</span>
-      <span>{mapTeamStateToMessage(team.state)}</span>
-      {team.state === TeamState.POINTING ? (
-        <button onClick={handleShowPoints}>Show Points</button>
-      ) : (
-        <button onClick={startPointing}>Start Pointing</button>
-      )}
       <hr />
-      <Users />
+      <div className={styles.storyIDContainer}>
+        <label className={styles.inputLabel}>What are you pointing?</label>
+        <input
+          className={sharedStyles.inputText}
+          type="text"
+          onChange={(e) => {
+            setNewStoryID(e.currentTarget.value);
+          }}
+          placeholder="Paste a link or Story ID"
+          ref={storyIDRef}
+        />
+        <button
+          className={clsx(sharedStyles.button, sharedStyles.buttonSmall)}
+          onClick={() => {
+            if (newStoryId) {
+              setStoryID(newStoryId);
+              setNewStoryID(null);
+
+              if (storyIDRef.current) {
+                storyIDRef.current.value = '';
+              }
+            }
+          }}
+        >
+          Save
+        </button>
+      </div>
     </div>
   );
 }

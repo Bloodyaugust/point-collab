@@ -15,6 +15,8 @@ import type { UserState } from '@projectTypes/userState';
 
 type ContextType = {
   clientUserState: UserState | null;
+  setStoryID: (storyID: string) => void;
+  showPoints: () => void;
   setTeamID: (teamID: string) => void;
   startPointing: () => void;
   teamID: string | null;
@@ -24,6 +26,8 @@ type ContextType = {
 
 const TeamContext = createContext<ContextType>({
   clientUserState: null,
+  setStoryID: () => {},
+  showPoints: () => {},
   setTeamID: () => {},
   startPointing: () => {},
   teamID: null,
@@ -168,6 +172,25 @@ export default function TeamContextComponent({
     }
   }, [team, userStates]);
 
+  const showPoints = useCallback(async () => {
+    if (team) {
+      await pocketBase.collection('teams').update(team.id, {
+        state: TeamState.REVEALED,
+      });
+    }
+  }, [team]);
+
+  const setStoryID = useCallback(
+    async (storyID: string) => {
+      if (team) {
+        await pocketBase.collection('teams').update(team.id, {
+          storyID,
+        });
+      }
+    },
+    [team],
+  );
+
   useEffect(() => {
     fetchTeam();
   }, [fetchTeam]);
@@ -178,7 +201,9 @@ export default function TeamContextComponent({
         clientUserState,
         team,
         teamID,
+        setStoryID,
         setTeamID,
+        showPoints,
         startPointing,
         userStates: sortedUserStates,
       }}

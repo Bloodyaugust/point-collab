@@ -13,7 +13,21 @@ hr {
 .container {
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   gap: 1rem;
+}
+
+.inputLabel {
+  color: var(--orange-400);
+  font-family: 'Bellota Text', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.storyIDContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .userStates {

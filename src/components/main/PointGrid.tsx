@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useCallback, useContext } from 'react';
 
+import CurrentlyPointing from '@components/main/CurrentlyPointing';
 import { TeamContext } from '@contexts/TeamContext';
 import pocketBase from '@lib/pocketbase';
 
@@ -33,10 +34,7 @@ export default function PointGrid() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.pointingMessageContainer}>
-        <span className={styles.pointingMessage}>Currently Pointing:</span>
-        <span className={styles.pointingStory}>{team.storyID}</span>
-      </div>
+      <CurrentlyPointing />
       <div className={styles.pointsContainer}>
         {points.map((point) => (
           <button

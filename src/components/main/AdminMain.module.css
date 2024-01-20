@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mostVoted {
+  color: var(--orange-300);
+  font-family: 'Calistoga', sans-serif;
+  font-size: 26px;
+}
+
+.mostVotedContainer {
+  align-items: center;
+  display: flex;
+  gap: 6px;
+}
+
+.mostVotedHeader {
+  color: var(--orange-400);
+  font-family: 'Calistoga', sans-serif;
+  font-size: 20px;
+}
+
+.pointIcon {
+  font-family: 'Material Icons' !important;
+}
+
+.userContainer {
+  background: white;
+  padding: 24px;
+}

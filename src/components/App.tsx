@@ -4,6 +4,7 @@ import { useState } from 'react';
 import AdminSidebar from '@components/AdminSidebar';
 import TeamChooser from '@components/TeamChooser';
 import UserSidebar from '@components/UserSidebar';
+import AdminMain from '@components/main/AdminMain';
 import PointGrid from '@components/main/PointGrid';
 import TeamID from '@components/sidebar/TeamID';
 import TeamContextComponent from '@contexts/TeamContext';
@@ -56,6 +57,7 @@ export default function App() {
           )}
           <TeamChooser clientID={clientID} />
           <PointGrid />
+          <AdminMain clientID={clientID} />
         </div>
         <div className={styles.sidebar}>
           <UserSidebar clientID={clientID} />

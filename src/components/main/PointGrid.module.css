@@ -28,22 +28,6 @@
   justify-items: center;
 }
 
-.pointingMessage {
-  color: var(--orange-300);
-  flex-shrink: 1;
-  font-family: 'Bellota Text', sans-serif;
-  font-size: 20px;
-}
-
-.pointingMessageContainer {
-  display: flex;
-}
-
-.pointingStory {
-  color: var(--link);
-  font-size: 20px;
-}
-
 .selected {
   background-color: var(--orange-300);
 }
