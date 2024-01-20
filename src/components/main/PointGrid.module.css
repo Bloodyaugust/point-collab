@@ -1,0 +1,14 @@
+.container {
+  align-items: center;
+  display: grid;
+  flex-grow: 1;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+}
+
+.pointButton {
+  font-size: x-large;
+  height: 5rem;
+  width: 4rem;
+}

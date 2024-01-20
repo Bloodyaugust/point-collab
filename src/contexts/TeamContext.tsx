@@ -94,7 +94,9 @@ export default function TeamContextComponent({
 
         const fetchedUserStates = (await pocketBase
           .collection('user_states')
-          .getFullList()) as UserState[];
+          .getFullList({
+            filter: `team = '${teamID}'`,
+          })) as UserState[];
         hydratedUserStates = [
           ...hydratedUserStates,
           ...fetchedUserStates.filter((userState) =>
