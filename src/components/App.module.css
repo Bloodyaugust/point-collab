@@ -9,7 +9,6 @@
 }
 
 .content {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -18,7 +17,6 @@
 }
 
 .sidebar {
-  border: 1px solid green;
   grid-area: sidebar;
   padding: 1rem;
 }
