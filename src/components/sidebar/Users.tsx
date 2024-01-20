@@ -16,6 +16,10 @@ function evaluateShownPoint(team: Team, userState: UserState) {
     return '✅';
   }
 
+  if (userState.pointSelected === -1) {
+    return '☕️';
+  }
+
   return userState.pointSelected;
 }
 

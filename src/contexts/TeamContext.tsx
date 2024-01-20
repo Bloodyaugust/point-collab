@@ -77,7 +77,7 @@ export default function TeamContextComponent({
               .collection('user_states')
               .update(newUserState.id, {
                 hasPointed: false,
-                pointSelected: 0,
+                pointSelected: -1,
                 name: clientName,
               })) as UserState;
           } catch {
@@ -85,6 +85,8 @@ export default function TeamContextComponent({
               clientID,
               name: clientName,
               team: teamID,
+              pointSelected: -1,
+              hasPointed: false,
             })) as UserState;
           }
 
@@ -120,6 +122,10 @@ export default function TeamContextComponent({
               ),
               dataUserState,
             ]);
+
+            if (dataUserState.clientID === clientID) {
+              setClientUserState(dataUserState);
+            }
           },
           {
             filter: `team = '${teamID}'`,
@@ -155,6 +161,7 @@ export default function TeamContextComponent({
         userStates.map(async (userState) => {
           await pocketBase.collection('user_states').update(userState.id, {
             hasPointed: false,
+            pointSelected: -1,
           });
         }),
       );

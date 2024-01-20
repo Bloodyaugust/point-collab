@@ -12,3 +12,7 @@
   height: 5rem;
   width: 4rem;
 }
+
+.selected {
+  background-color: teal;
+}

@@ -1,6 +1,8 @@
-import { useContext } from 'react';
+import clsx from 'clsx';
+import { useCallback, useContext } from 'react';
 
 import { TeamContext } from '@contexts/TeamContext';
+import pocketBase from '@lib/pocketbase';
 
 import styles from './PointGrid.module.css';
 
@@ -8,6 +10,18 @@ const points = [0, 1, 2, 3, 5, 8, 13, 21];
 
 export default function PointGrid() {
   const { team, clientUserState } = useContext(TeamContext);
+
+  const handlePointClicked = useCallback(
+    async (point: number) => {
+      if (team && clientUserState) {
+        await pocketBase.collection('user_states').update(clientUserState.id, {
+          hasPointed: true,
+          pointSelected: point,
+        });
+      }
+    },
+    [team, clientUserState],
+  );
 
   if (!team) {
     return undefined;
@@ -20,11 +34,30 @@ export default function PointGrid() {
   return (
     <div className={styles.container}>
       {points.map((point) => (
-        <button className={styles.pointButton} key={point}>
+        <button
+          className={clsx(
+            styles.pointButton,
+            point === clientUserState.pointSelected && styles.selected,
+          )}
+          key={point}
+          onClick={() => {
+            handlePointClicked(point);
+          }}
+        >
           {point}
         </button>
       ))}
-      <button className={styles.pointButton}>☕️</button>
+      <button
+        className={clsx(
+          styles.pointButton,
+          clientUserState.pointSelected === -1 && styles.selected,
+        )}
+        onClick={() => {
+          handlePointClicked(-1);
+        }}
+      >
+        ☕️
+      </button>
     </div>
   );
 }
