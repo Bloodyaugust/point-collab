@@ -1,6 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import App from "../components/App";
+import Layout from '../layouts/Layout.astro';
+import App from '../components/App';
 ---
 
 <Layout
@@ -9,7 +9,14 @@ import App from "../components/App";
 >
   <main>
     <div class="header">
-      <h1>Point Collab</h1>
+      <div class="headerContent">
+        <div class="headerLeft">
+          <h1>Point Collab</h1>
+        </div>
+        <div class="headerRight"></div>
+      </div>
+      <div class="headerBar1"></div>
+      <div class="headerBar2"></div>
     </div>
     <App client:idle />
   </main>
@@ -17,21 +24,57 @@ import App from "../components/App";
 
 <style>
   h1 {
-    color: white;
+    color: var(--orange-400);
+    margin: 0;
   }
 
   main {
     display: grid;
     grid-template-areas:
-      "header header header"
-      "content content content"
-      "content content content"
-      "content content content";
+      'header header header'
+      'content content content'
+      'content content content'
+      'content content content';
   }
 
   .header {
+    background: var(--orange-100);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
     grid-area: header;
+    justify-content: center;
+    padding: 32px 42px 0px 42px;
+  }
+
+  .headerContent {
+    display: flex;
+  }
+
+  .headerLeft {
+    flex-grow: 1;
+    justify-items: left;
+  }
+
+  .headerRight {
+    flex-grow: 1;
+    justify-items: right;
+  }
+
+  .headerBar1 {
+    background: var(--orange-200);
+    height: 10px;
+    justify-self: center;
+    margin-left: -42px;
+    width: calc(100% + 84px);
+  }
+
+  .headerBar2 {
+    background: var(--orange-300);
+    height: 20px;
+    justify-self: center;
+    margin-bottom: 8px;
+    margin-left: -42px;
+    width: calc(100% + 84px);
   }
 </style>
