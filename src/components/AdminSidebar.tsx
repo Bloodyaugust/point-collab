@@ -1,5 +1,6 @@
 import { useCallback, useContext } from 'react';
 
+import Users from '@components/sidebar/Users';
 import { TeamContext } from '@contexts/TeamContext';
 import pocketBase from '@lib/pocketbase';
 import { TeamState } from '@projectTypes/teamState';
@@ -21,7 +22,7 @@ function mapTeamStateToMessage(teamState: TeamState) {
 }
 
 export default function AdminSidebar({ clientID }: Props) {
-  const { team, userStates, startPointing } = useContext(TeamContext);
+  const { team, startPointing } = useContext(TeamContext);
 
   const handleShowPoints = useCallback(async () => {
     if (team) {
@@ -39,22 +40,14 @@ export default function AdminSidebar({ clientID }: Props) {
     <div className={styles.container}>
       <h2>{team.name}</h2>
       <span>Team ID: {team.id}</span>
-      <span>Team state: {mapTeamStateToMessage(team.state)}</span>
+      <span>{mapTeamStateToMessage(team.state)}</span>
       {team.state === TeamState.POINTING ? (
         <button onClick={handleShowPoints}>Show Points</button>
       ) : (
         <button onClick={startPointing}>Start Pointing</button>
       )}
       <hr />
-      <h3>Users</h3>
-      <div className={styles.userStates}>
-        {userStates.map((userState) => (
-          <span key={userState.id}>
-            {userState.name}: {userState.pointSelected} - (hasPointed:{' '}
-            {userState.hasPointed ? 'true' : 'false'})
-          </span>
-        ))}
-      </div>
+      <Users />
     </div>
   );
 }

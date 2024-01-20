@@ -3,6 +3,7 @@ import {
   createContext,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 
@@ -48,6 +49,10 @@ export default function TeamContextComponent({
   );
   const [userStates, setUserStates] = useState<UserState[]>([]);
 
+  const sortedUserStates = useMemo(() => {
+    return userStates.sort((a, b) => a.name.localeCompare(b.name));
+  }, [userStates]);
+
   const fetchTeam = useCallback(async () => {
     if (teamID) {
       try {
@@ -90,7 +95,14 @@ export default function TeamContextComponent({
         const fetchedUserStates = (await pocketBase
           .collection('user_states')
           .getFullList()) as UserState[];
-        hydratedUserStates = [...hydratedUserStates, ...fetchedUserStates];
+        hydratedUserStates = [
+          ...hydratedUserStates,
+          ...fetchedUserStates.filter((userState) =>
+            hydratedUserStates.length
+              ? userState.clientID !== hydratedUserStates[0].clientID
+              : true,
+          ),
+        ];
 
         setUserStates(hydratedUserStates);
 
@@ -114,6 +126,7 @@ export default function TeamContextComponent({
 
         setTeam(newTeam);
       } catch (error) {
+        console.error(error);
         pocketBase.collection('teams').unsubscribe();
         pocketBase.collection('user_states').unsubscribe();
         setClientUserState(null);
@@ -158,7 +171,7 @@ export default function TeamContextComponent({
         teamID,
         setTeamID,
         startPointing,
-        userStates,
+        userStates: sortedUserStates,
       }}
     >
       {children}

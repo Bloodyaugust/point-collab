@@ -1,5 +1,6 @@
 import { useCallback, useContext } from 'react';
 
+import Users from '@components/sidebar/Users';
 import pocketBase from '@lib/pocketbase';
 
 import { TeamContext } from '../contexts/TeamContext';
@@ -31,6 +32,7 @@ export default function UserSidebar({ clientID }: Props) {
       <span>Team State: {team.state}</span>
       <hr />
       <button onClick={handlePointClicked}>Point!</button>
+      <Users />
     </div>
   );
 }
