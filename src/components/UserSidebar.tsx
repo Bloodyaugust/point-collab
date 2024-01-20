@@ -1,7 +1,6 @@
-import { useCallback, useContext } from 'react';
+import { useContext } from 'react';
 
 import Users from '@components/sidebar/Users';
-import pocketBase from '@lib/pocketbase';
 
 import { TeamContext } from '../contexts/TeamContext';
 
@@ -10,15 +9,7 @@ type Props = {
 };
 
 export default function UserSidebar({ clientID }: Props) {
-  const { team, clientUserState } = useContext(TeamContext);
-
-  const handlePointClicked = useCallback(async () => {
-    if (team && clientUserState) {
-      await pocketBase.collection('user_states').update(clientUserState.id, {
-        hasPointed: true,
-      });
-    }
-  }, [team, clientUserState]);
+  const { team } = useContext(TeamContext);
 
   if (!team || team.adminClientID === clientID) {
     return undefined;
@@ -26,12 +17,8 @@ export default function UserSidebar({ clientID }: Props) {
 
   return (
     <div>
-      <span>
-        Team: {team.name}({team.id})
-      </span>
-      <span>Team State: {team.state}</span>
+      <h2>{team.name}</h2>
       <hr />
-      <button onClick={handlePointClicked}>Point!</button>
       <Users />
     </div>
   );

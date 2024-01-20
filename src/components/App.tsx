@@ -5,6 +5,7 @@ import AdminSidebar from '@components/AdminSidebar';
 import TeamChooser from '@components/TeamChooser';
 import UserSidebar from '@components/UserSidebar';
 import PointGrid from '@components/main/PointGrid';
+import TeamID from '@components/sidebar/TeamID';
 import TeamContextComponent from '@contexts/TeamContext';
 import useClientID from '@hooks/UseClientID';
 import useName from '@hooks/UseName';
@@ -46,9 +47,7 @@ export default function App() {
     <TeamContextComponent clientID={clientID} clientName={name}>
       <div className={styles.container}>
         <div className={styles.content}>
-          {name ? (
-            <span>Hello, {name}!</span>
-          ) : (
+          {!name && (
             <>
               <label>Name: </label>
               <input onChange={handleNameChange} />
@@ -61,6 +60,7 @@ export default function App() {
         <div className={styles.sidebar}>
           <UserSidebar clientID={clientID} />
           <AdminSidebar clientID={clientID} />
+          <TeamID />
         </div>
       </div>
     </TeamContextComponent>

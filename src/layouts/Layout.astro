@@ -4,6 +4,11 @@ interface Props {
   title: string;
 }
 
+import '@fontsource/bellota-text/400.css';
+import '@fontsource/bellota-text/700.css';
+import '@fontsource/calistoga';
+import '@fontsource/material-icons';
+
 const { description, title } = Astro.props;
 ---
 
@@ -39,5 +44,41 @@ const { description, title } = Astro.props;
     font-family: system-ui, sans-serif;
     color: white;
     background: var(--orange-400);
+  }
+
+  h2 {
+    color: var(--orange-300);
+    font-size: 26px;
+    font-family: 'Calistoga', sans-serif;
+    font-weight: 400;
+  }
+
+  hr {
+    border-color: var(--orange-200);
+    border-width: 0.5px;
+  }
+
+  .material-icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
   }
 </style>

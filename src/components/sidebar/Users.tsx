@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useContext } from 'react';
 
 import { TeamContext } from '@contexts/TeamContext';
@@ -10,17 +11,31 @@ import styles from './Users.module.css';
 function evaluateShownPoint(team: Team, userState: UserState) {
   if (team.state === TeamState.POINTING) {
     if (!userState.hasPointed) {
-      return '⏳';
+      return (
+        <span className={clsx(styles.userIconDark, 'material-icons')}>
+          hourglass_bottom
+        </span>
+      );
     }
 
-    return '✅';
+    return (
+      <span className={clsx(styles.userIconLight, 'material-icons')}>
+        check_circle
+      </span>
+    );
   }
 
   if (userState.pointSelected === -1) {
-    return '☕️';
+    return (
+      <span className={clsx(styles.userIconLight, 'material-icons')}>
+        coffee
+      </span>
+    );
   }
 
-  return userState.pointSelected;
+  return (
+    <span className={styles.pointSelected}>{userState.pointSelected}</span>
+  );
 }
 
 export default function Users() {
@@ -32,11 +47,11 @@ export default function Users() {
 
   return (
     <div className={styles.container}>
-      <h3>Users</h3>
       {userStates.map((userState) => (
-        <span key={userState.id}>
-          {userState.name}: {evaluateShownPoint(team, userState)}
-        </span>
+        <div className={styles.userContainer} key={userState.id}>
+          {evaluateShownPoint(team, userState)}
+          <span className={styles.user}>{userState.name}</span>
+        </div>
       ))}
     </div>
   );

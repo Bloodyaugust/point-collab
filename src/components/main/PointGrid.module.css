@@ -1,18 +1,49 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 24px;
+}
+
+.pointButton {
+  align-items: center;
+  background: var(--orange-400);
+  border: 0;
+  border-radius: 25px;
+  color: var(--orange-100);
+  display: flex;
+  font-size: 72px;
+  font-family: 'Calistoga', sans-serif;
+  height: 170px;
+  justify-content: center;
+  padding: 32px;
+  width: 100%;
+}
+
+.pointsContainer {
   align-items: center;
   display: grid;
-  flex-grow: 1;
   gap: 1rem;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
 }
 
-.pointButton {
-  font-size: x-large;
-  height: 5rem;
-  width: 4rem;
+.pointingMessage {
+  color: var(--orange-300);
+  flex-shrink: 1;
+  font-family: 'Bellota Text', sans-serif;
+  font-size: 20px;
+}
+
+.pointingMessageContainer {
+  display: flex;
+}
+
+.pointingStory {
+  color: var(--link);
+  font-size: 20px;
 }
 
 .selected {
-  background-color: teal;
+  background-color: var(--orange-300);
 }

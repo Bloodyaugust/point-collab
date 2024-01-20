@@ -1,0 +1,38 @@
+.container {
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+.teamIDContainer {
+  display: flex;
+  font-family: 'Bellota Text', sans-serif;
+  gap: 4px;
+}
+
+.teamIDHeader {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.teamIDLink {
+  font-family: 'Bellota Text', sans-serif;
+  font-weight: 700;
+}
+
+.teamIDValue {
+  color: var(--orange-400);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.teamLinkContainer {
+  align-items: center;
+  color: var(--link);
+  cursor: pointer;
+  display: flex;
+  font-size: 18px;
+  gap: 4px;
+}

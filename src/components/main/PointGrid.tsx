@@ -33,31 +33,37 @@ export default function PointGrid() {
 
   return (
     <div className={styles.container}>
-      {points.map((point) => (
+      <div className={styles.pointingMessageContainer}>
+        <span className={styles.pointingMessage}>Currently Pointing:</span>
+        <span className={styles.pointingStory}>{team.storyID}</span>
+      </div>
+      <div className={styles.pointsContainer}>
+        {points.map((point) => (
+          <button
+            className={clsx(
+              styles.pointButton,
+              point === clientUserState.pointSelected && styles.selected,
+            )}
+            key={point}
+            onClick={() => {
+              handlePointClicked(point);
+            }}
+          >
+            {point}
+          </button>
+        ))}
         <button
           className={clsx(
             styles.pointButton,
-            point === clientUserState.pointSelected && styles.selected,
+            clientUserState.pointSelected === -1 && styles.selected,
           )}
-          key={point}
           onClick={() => {
-            handlePointClicked(point);
+            handlePointClicked(-1);
           }}
         >
-          {point}
+          <span className="material-icons">coffee</span>
         </button>
-      ))}
-      <button
-        className={clsx(
-          styles.pointButton,
-          clientUserState.pointSelected === -1 && styles.selected,
-        )}
-        onClick={() => {
-          handlePointClicked(-1);
-        }}
-      >
-        ☕️
-      </button>
+      </div>
     </div>
   );
 }
