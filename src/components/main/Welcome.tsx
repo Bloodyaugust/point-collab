@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import sharedStyles from '@components/SharedStyles.module.css';
 import pocketBase from '@lib/pocketbase';
@@ -27,6 +27,8 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
   const [joinTeamID, setJoinTeamID] = useState('');
   const [joinTeamError, setJoinTeamError] = useState<string | null>(null);
   const [loadParams, setLoadParams] = useState<Record<string, string>>({});
+  const [joinButtonClicked, setJoinButtonClicked] = useState<boolean>(false);
+  const teamIDRef = useRef<null | HTMLInputElement>(null);
 
   const storeTeamID = () => {
     if (teamID) {
@@ -54,6 +56,7 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
     })) as Team;
 
     setTeamID(newTeam.id);
+    setJoinButtonClicked(true);
   };
 
   const handleJoinTeam = async (deepLinkID: string | undefined) => {
@@ -81,16 +84,21 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
     const { team } = loadParams;
 
     if (team) {
-      handleJoinTeam(team);
+      setTeamID(team);
+      setTeamMode(TeamMode.JOIN);
+
+      if (teamIDRef.current) {
+        teamIDRef.current.value = team;
+      }
     }
-  }, [loadParams]);
+  }, [loadParams, teamMode]);
 
   useEffect(() => {
-    if (clientName && teamID) {
+    if (clientName && teamID && joinButtonClicked) {
       storeTeamID();
       onOnboarded(clientName);
     }
-  }, [clientName, teamID]);
+  }, [clientName, teamID, joinButtonClicked]);
 
   return (
     <div className={styles.container}>
@@ -150,6 +158,7 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
             type="text"
             onChange={handleJoinTeamIDChange}
             placeholder="Team ID"
+            ref={teamIDRef}
           />
           {joinTeamError && (
             <span className={sharedStyles.error}>{joinTeamError}</span>
@@ -158,6 +167,7 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
             className={sharedStyles.button}
             onClick={() => {
               handleJoinTeam(undefined);
+              setJoinButtonClicked(true);
             }}
           >
             Join Team!
