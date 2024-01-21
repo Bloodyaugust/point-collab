@@ -15,6 +15,7 @@ import type { UserState } from '@projectTypes/userState';
 
 type ContextType = {
   clientUserState: UserState | null;
+  clientName: string;
   setStoryID: (storyID: string) => void;
   showPoints: () => void;
   setTeamID: (teamID: string) => void;
@@ -26,6 +27,7 @@ type ContextType = {
 
 const TeamContext = createContext<ContextType>({
   clientUserState: null,
+  clientName: '',
   setStoryID: () => {},
   showPoints: () => {},
   setTeamID: () => {},
@@ -199,6 +201,7 @@ export default function TeamContextComponent({
     <TeamContext.Provider
       value={{
         clientUserState,
+        clientName,
         team,
         teamID,
         setStoryID,

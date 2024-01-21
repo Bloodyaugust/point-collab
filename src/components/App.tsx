@@ -1,6 +1,3 @@
-import type React from 'react';
-import { useState } from 'react';
-
 import AdminSidebar from '@components/AdminSidebar';
 import UserSidebar from '@components/UserSidebar';
 import AdminMain from '@components/main/AdminMain';
@@ -12,20 +9,11 @@ import useClientID from '@hooks/UseClientID';
 import useName from '@hooks/UseName';
 
 import styles from './App.module.css';
+import HeaderControls from './HeaderControls';
 
 export default function App() {
   const { name, setName } = useName();
   const clientID = useClientID();
-  const [newName, setNewName] = useState<string>('');
-
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNewName(event.target.value);
-  };
-
-  const handleNameSubmit = () => {
-    setName(newName);
-    setNewName('');
-  };
 
   const handleOnboarded = (newClientName: string) => {
     setName(newClientName);
@@ -47,13 +35,6 @@ export default function App() {
     <TeamContextComponent clientID={clientID} clientName={name}>
       <div className={styles.container}>
         <div className={styles.content}>
-          {!name && (
-            <>
-              <label>Name: </label>
-              <input onChange={handleNameChange} />
-              <button onClick={handleNameSubmit}>Submit</button>
-            </>
-          )}
           <PointGrid />
           <AdminMain clientID={clientID} />
         </div>
@@ -62,6 +43,7 @@ export default function App() {
           <AdminSidebar clientID={clientID} />
           <TeamID />
         </div>
+        <HeaderControls />
       </div>
     </TeamContextComponent>
   );

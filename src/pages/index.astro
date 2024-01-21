@@ -13,7 +13,7 @@ import App from '../components/App';
         <div class="headerLeft">
           <h1>Point Collab</h1>
         </div>
-        <div class="headerRight"></div>
+        <div class="headerRight" id="headerPortal"></div>
       </div>
       <div class="headerBar1"></div>
       <div class="headerBar2"></div>
@@ -62,8 +62,11 @@ import App from '../components/App';
   }
 
   .headerRight {
+    align-items: end;
+    display: flex;
     flex-grow: 1;
-    justify-items: right;
+    justify-content: right;
+    margin-bottom: 10px;
   }
 
   .headerBar1 {
