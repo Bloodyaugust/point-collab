@@ -64,6 +64,7 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
         .collection('teams')
         .getOne(joiningTeam)) as Team;
 
+      console.log('joining team: ', team.id);
       setTeamID(team.id);
       setJoinTeamError(null);
     } catch {

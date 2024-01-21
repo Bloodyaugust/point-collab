@@ -10,6 +10,8 @@ export default function HeaderControls() {
   const [portalElement, setPortalElement] = useState<HTMLElement | null>(null);
   const { clientName } = useContext(TeamContext);
 
+  // TODO: Fetch teams this user is an admin of, present them as options to switch to
+
   const [showMenu, setShowMenu] = useState<boolean>(false);
 
   const handleSignOutClick = () => {

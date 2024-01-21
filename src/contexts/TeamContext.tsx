@@ -77,7 +77,9 @@ export default function TeamContextComponent({
           try {
             newUserState = (await pocketBase
               .collection('user_states')
-              .getFirstListItem(`clientID="${clientID}"`)) as UserState;
+              .getFirstListItem(
+                `clientID="${clientID}" && teamID="${newTeam.id}"`,
+              )) as UserState;
 
             newUserState = (await pocketBase
               .collection('user_states')
