@@ -2,10 +2,10 @@ import type React from 'react';
 import { useState } from 'react';
 
 import AdminSidebar from '@components/AdminSidebar';
-import TeamChooser from '@components/TeamChooser';
 import UserSidebar from '@components/UserSidebar';
 import AdminMain from '@components/main/AdminMain';
 import PointGrid from '@components/main/PointGrid';
+import Welcome from '@components/main/Welcome';
 import TeamID from '@components/sidebar/TeamID';
 import TeamContextComponent from '@contexts/TeamContext';
 import useClientID from '@hooks/UseClientID';
@@ -27,6 +27,10 @@ export default function App() {
     setNewName('');
   };
 
+  const handleOnboarded = (newClientName: string) => {
+    setName(newClientName);
+  };
+
   if (!clientID) {
     return <span>Loading...</span>;
   }
@@ -34,12 +38,7 @@ export default function App() {
   if (!name) {
     return (
       <div className={styles.container}>
-        <div className={styles.content}>
-          <h2>What name do you want to use?</h2>
-          <label>Name: </label>
-          <input onChange={handleNameChange} />
-          <button onClick={handleNameSubmit}>Let&apos;s Go!</button>
-        </div>
+        <Welcome clientID={clientID} onOnboarded={handleOnboarded} />
       </div>
     );
   }
@@ -55,7 +54,6 @@ export default function App() {
               <button onClick={handleNameSubmit}>Submit</button>
             </>
           )}
-          <TeamChooser clientID={clientID} />
           <PointGrid />
           <AdminMain clientID={clientID} />
         </div>

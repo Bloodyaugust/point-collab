@@ -10,8 +10,17 @@
   padding: 10px 16px;
 }
 
+.button:disabled {
+  background: grey;
+  cursor: unset;
+}
+
 .buttonSmall {
   width: fit-content;
+}
+
+.error {
+  color: darkred;
 }
 
 .inputText {
@@ -26,4 +35,11 @@
 }
 .inputText::placeholder {
   color: var(--orange-400);
+}
+
+.label {
+  color: var(--orange-400);
+  font-family: "Bellota Text", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
 }
