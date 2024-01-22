@@ -19,6 +19,7 @@ import App from '../components/App';
       <div class="headerBar2"></div>
     </div>
     <App client:idle />
+    <div class="footerContainer"><span>Made with ❤ by <a href="https://grichey.me">Greyson Richey</a> and <a href="https://www.linkedin.com/in/annemnichols/">Anne Nichols</a></span></div>
   </main>
 </Layout>
 
@@ -37,9 +38,22 @@ import App from '../components/App';
       'header header header'
       'content content content'
       'content content content'
-      'content content content';
-    grid-template-rows: 140px 1fr 1fr;
+      'content content content'
+      'footer footer footer';
+    grid-template-rows: 140px 1fr 1fr 1fr 60px;
     min-height: 100vh;
+  }
+
+  .footerContainer {
+    align-items: center;
+    background: var(--orange-100);
+    color: var(--orange-400);
+    display: flex;
+    font-family: "Bellota Text", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    grid-column-end: span 3;
+    justify-content: center;
   }
 
   .header {
