@@ -185,7 +185,11 @@ export default function Welcome({ clientID, onOnboarded }: Props) {
             onChange={handleTeamNameChange}
             placeholder="Team Awesome"
           />
-          <button className={sharedStyles.button} onClick={handleCreateTeam}>
+          <button
+            className={sharedStyles.button}
+            onClick={handleCreateTeam}
+            disabled={!teamName}
+          >
             Start Team!
           </button>
         </div>
