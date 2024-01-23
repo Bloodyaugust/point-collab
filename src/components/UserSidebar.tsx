@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import Users from '@components/sidebar/Users';
+import Users, { UserDisplayLocations } from '@components/sidebar/Users';
 
 import { TeamContext } from '../contexts/TeamContext';
 
@@ -19,7 +19,7 @@ export default function UserSidebar({ clientID }: Props) {
     <div>
       <h2>{team.name}</h2>
       <hr />
-      <Users />
+      <Users location={UserDisplayLocations.SIDEBAR} />
     </div>
   );
 }

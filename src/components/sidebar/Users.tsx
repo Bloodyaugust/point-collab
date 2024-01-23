@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { useContext } from 'react';
 
+import HourglassSpinner from '@components/doodads/HourglassSpinner';
 import { TeamContext } from '@contexts/TeamContext';
 import type { Team } from '@projectTypes/team';
 import { TeamState } from '@projectTypes/teamState';
@@ -8,13 +9,22 @@ import type { UserState } from '@projectTypes/userState';
 
 import styles from './Users.module.css';
 
-function evaluateShownPoint(team: Team, userState: UserState) {
+export enum UserDisplayLocations {
+  ADMIN,
+  SIDEBAR,
+}
+
+function evaluateShownPoint(
+  team: Team,
+  userState: UserState,
+  location: UserDisplayLocations,
+) {
   if (team.state === TeamState.POINTING) {
     if (!userState.hasPointed) {
       return (
-        <span className={clsx(styles.userIconDark, 'material-icons')}>
-          hourglass_bottom
-        </span>
+        <HourglassSpinner
+          color={location === UserDisplayLocations.ADMIN ? 'white' : '#fff5e5'}
+        />
       );
     }
 
@@ -38,7 +48,11 @@ function evaluateShownPoint(team: Team, userState: UserState) {
   );
 }
 
-export default function Users() {
+type Props = {
+  location: UserDisplayLocations;
+};
+
+export default function Users({ location }: Props) {
   const { userStates, team } = useContext(TeamContext);
 
   if (!team) {
@@ -49,7 +63,7 @@ export default function Users() {
     <div className={styles.container}>
       {userStates.map((userState) => (
         <div className={styles.userContainer} key={userState.id}>
-          {evaluateShownPoint(team, userState)}
+          {evaluateShownPoint(team, userState, location)}
           <span className={styles.user}>{userState.name}</span>
         </div>
       ))}

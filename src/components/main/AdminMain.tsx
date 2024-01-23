@@ -3,7 +3,7 @@ import { useContext, useMemo } from 'react';
 
 import sharedStyles from '@components/SharedStyles.module.css';
 import CurrentlyPointing from '@components/main/CurrentlyPointing';
-import Users from '@components/sidebar/Users';
+import Users, { UserDisplayLocations } from '@components/sidebar/Users';
 import { TeamContext } from '@contexts/TeamContext';
 import { TeamState } from '@projectTypes/teamState';
 
@@ -122,7 +122,7 @@ export default function AdminMain({ clientID }: Props) {
         </div>
       )}
       <div className={styles.userContainer}>
-        <Users />
+        <Users location={UserDisplayLocations.ADMIN} />
       </div>
       {team.state === TeamState.POINTING ? (
         <button className={sharedStyles.button} onClick={showPoints}>
