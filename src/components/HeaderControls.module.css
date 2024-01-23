@@ -44,6 +44,10 @@
   flex-direction: column;
 }
 
+.menuContainer > hr {
+  margin: 0;
+}
+
 .menuContainer > span {
   cursor: pointer;
   padding: 8px 32px;
@@ -51,4 +55,14 @@
 
 .menuContainer > span:hover {
   background: var(--orange-200);
+}
+
+.menuContainer > span.sectionHeader {
+  font-family: "Calistoga", sans-serif;
+  padding-left: 16px;
+}
+
+.menuContainer > span.sectionHeader:hover {
+  background: unset;
+  cursor: unset;
 }

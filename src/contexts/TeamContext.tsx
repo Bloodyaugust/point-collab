@@ -8,6 +8,7 @@ import {
 } from 'react';
 
 import useTeamID from '@hooks/UseTeamID';
+import useTeams from '@hooks/UseTeams';
 import pocketBase from '@lib/pocketbase';
 import { type Team } from '@projectTypes/team';
 import { TeamState } from '@projectTypes/teamState';
@@ -56,6 +57,7 @@ export default function TeamContextComponent({
     null,
   );
   const [userStates, setUserStates] = useState<UserState[]>([]);
+  const { addTeam } = useTeams();
 
   const sortedUserStates = useMemo(() => {
     return userStates.sort((a, b) => a.name.localeCompare(b.name));
@@ -67,6 +69,8 @@ export default function TeamContextComponent({
         const newTeam = (await pocketBase
           .collection('teams')
           .getOne(teamID)) as Team;
+
+        addTeam(newTeam.id, newTeam.name);
 
         pocketBase.collection('teams').subscribe(newTeam.id, (data) => {
           setTeam(data.record as unknown as Team);
@@ -204,7 +208,7 @@ export default function TeamContextComponent({
 
   useEffect(() => {
     fetchTeam();
-  }, [fetchTeam]);
+  }, [teamID]);
 
   return (
     <TeamContext.Provider
