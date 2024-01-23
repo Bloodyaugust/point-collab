@@ -10,7 +10,14 @@
   font-size: 20px;
 }
 
-.pointingStory {
+a.pointingStory {
   color: var(--link);
+  font-family: 'Bellota Text', sans-serif;
+  font-size: 20px;
+}
+
+span.pointingStory {
+  color: var(--orange-300);
+  font-family: 'Bellota Text', sans-serif;
   font-size: 20px;
 }
