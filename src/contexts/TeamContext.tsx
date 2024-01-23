@@ -37,6 +37,8 @@ const TeamContext = createContext<ContextType>({
   userStates: [],
 });
 
+const USER_INACTIVE_INTERVAL = 1000 * 60 * 60 * 24; // 24 hours
+
 type Props = {
   children: ReactNode;
   clientID: string;
@@ -102,10 +104,15 @@ export default function TeamContextComponent({
           setClientUserState(newUserState);
         }
 
+        const userInactiveDate = new Date(
+          new Date().getTime() - USER_INACTIVE_INTERVAL,
+        )
+          .toISOString()
+          .replace('T', ' ');
         const fetchedUserStates = (await pocketBase
           .collection('user_states')
           .getFullList({
-            filter: `team = '${teamID}'`,
+            filter: `team = '${teamID}' && updated >= '${userInactiveDate}'`,
           })) as UserState[];
         hydratedUserStates = [
           ...hydratedUserStates,
