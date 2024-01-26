@@ -11,25 +11,44 @@ import App from '../components/App';
     <div class="header">
       <div class="headerContent">
         <div class="headerLeft">
-          <h1>Point Collab</h1>
+          <a href="/"><h1>Point Collab</h1></a>
         </div>
-        <div class="headerRight" id="headerPortal"></div>
       </div>
       <div class="headerBar1"></div>
       <div class="headerBar2"></div>
     </div>
-    <App client:idle />
+    <article>
+      <h2>Privacy Policy</h2>
+      <p>
+        We don't collect any data from you. There are no ads or trackers present
+        in this app, and there never will be. Only enter information, such as
+        names and story ids or links, that you are comfortable with being seen
+        by others. If you would like to have a team deleted, please email the
+        team ID to greysonrichey (at) gmail.com with the subject "Please Delete
+        My Team".
+      </p>
+    </article>
     <div class="footerContainer">
       <span
         >Made with ❤ by <a href="https://grichey.me">Greyson Richey</a> and <a
           href="https://www.linkedin.com/in/annemnichols/">Anne Nichols</a
         ></span
-      ><a href="/privacy" class="privacy">Privacy Policy</a>
+      >
+      <a href="/" class="privacy">Back to app</a>
     </div>
   </main>
 </Layout>
 
 <style>
+  article {
+    grid-area: content;
+    padding: 32px;
+  }
+
+  article > h2 {
+    color: white;
+  }
+
   h1 {
     color: var(--orange-400);
     font-family: 'Calistoga', sans-serif;
@@ -48,6 +67,11 @@ import App from '../components/App';
       'footer footer footer';
     grid-template-rows: 140px 1fr 1fr 1fr 60px;
     min-height: 100vh;
+  }
+
+  p {
+    font-family: 'Bellota Text', sans-serif;
+    font-size: 20px;
   }
 
   .footerContainer {

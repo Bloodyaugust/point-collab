@@ -27,3 +27,5 @@ You will also need an accessible and correctly-configured Pocketbase instance (`
 Any host that can support running Astro in SSR mode with node should work. Additionally, a host that can run either the Pocketbase executable _or_ run/host a Dockerfile _and_ offers persistent storage is necessary.
 
 The "canonical" site built from pushes to `main` on this repository runs on [Railway](https://railway.app/), and uses their "Persistent Volumes" feature, as well as [this dockerfile](https://github.com/Bloodyaugust/point-collab-pocketbase).
+
+If you do host this app anywhere that is not the "canonical" site, make sure to change the privacy page to something that makes sense for you.
