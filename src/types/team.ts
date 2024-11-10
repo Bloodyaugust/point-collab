@@ -1,4 +1,12 @@
-import type { TeamState } from './teamState';
+export enum TeamState {
+  POINTING,
+  REVEALED,
+}
+
+export type StoredTeam = {
+  id: string;
+  name: string;
+};
 
 export type Team = {
   id: string;
