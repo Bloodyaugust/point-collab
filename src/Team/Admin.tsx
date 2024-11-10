@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import UserStatus from '../components/UserStatus';
+import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
 import queryClient from '../lib/QueryClient';
 import pocketBase from '../lib/pocketbase';
 import { Team, TeamState } from '../types/team';
@@ -14,7 +15,18 @@ type Props = {
 
 export default function Admin({ team }: Props) {
   const [newStoryID, setNewStoryId] = useState<string>('');
+  const userStates = useRealtimeUserStates({ teamID: team.id });
   const toggleTeamState = useCallback(async () => {
+    if (team.state === TeamState.REVEALED) {
+      const updates = userStates.map((userState) =>
+        pocketBase.collection('user_states').update(userState.id, {
+          hasPointed: false,
+        }),
+      );
+
+      await Promise.all(updates);
+    }
+
     await pocketBase.collection('teams').update(team.id, {
       state:
         team.state === TeamState.POINTING
@@ -23,7 +35,7 @@ export default function Admin({ team }: Props) {
     });
 
     await queryClient.invalidateQueries({ queryKey: ['team', team.id] });
-  }, [team.id, team.state]);
+  }, [team.id, team.state, userStates]);
   const setTeamStoryID = useCallback(async () => {
     await pocketBase.collection('teams').update(team.id, {
       storyID: newStoryID,
@@ -45,30 +57,16 @@ export default function Admin({ team }: Props) {
         <div>
           <h2>Status</h2>
           <div className={styles.statusWindow}>
-            <UserStatus
-              teamState={team.state}
-              user={{
-                id: '123',
-                clientID: '123',
-                pointSelected: 0,
-                hasPointed: false,
-                name: 'Greyson Richey',
-                team: '123',
-                updated: '123',
-              }}
-            />
-            <UserStatus
-              teamState={team.state}
-              user={{
-                id: '123',
-                clientID: '123',
-                pointSelected: 3,
-                hasPointed: true,
-                name: 'Anne Nichols',
-                team: '123',
-                updated: '123',
-              }}
-            />
+            {userStates.length === 0 && (
+              <span className={styles.waitingUsers}>Waiting for users...</span>
+            )}
+            {userStates.map((userState) => (
+              <UserStatus
+                key={userState.id}
+                teamState={team.state}
+                user={userState}
+              />
+            ))}
           </div>
         </div>
         <Button

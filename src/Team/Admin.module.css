@@ -84,3 +84,10 @@
   font-family: 'BellotaText', sans-serif;
   font-weight: 700;
 }
+
+.waitingUsers {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}

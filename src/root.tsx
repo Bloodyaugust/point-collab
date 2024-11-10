@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import Footer from './components/Footer';
@@ -11,16 +11,19 @@ export default function Root() {
   const initializeClientStore = useClientStore((state) => state.initialize);
   const name = useClientStore((state) => state.name);
   const currentTeamID = useClientStore((state) => state.currentTeamID);
+  const [clientStoreInitialized, setClientStoreInitialized] =
+    useState<boolean>(false);
 
   useEffect(() => {
     initializeClientStore();
+    setClientStoreInitialized(true);
   }, [initializeClientStore]);
 
   useEffect(() => {
-    if (!name && !currentTeamID) {
+    if (clientStoreInitialized && !name && !currentTeamID) {
       navigate('/welcome');
     }
-  }, [currentTeamID, name, navigate]);
+  }, [clientStoreInitialized, currentTeamID, name, navigate]);
 
   return (
     <div className={styles.container}>
