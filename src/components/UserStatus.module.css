@@ -1,0 +1,8 @@
+.container {
+  color: var(--orange-400);
+  display: flex;
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 400;
+  gap: 6px;
+}
