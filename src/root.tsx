@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
 import Footer from './components/Footer';
@@ -11,12 +11,10 @@ export default function Root() {
   const initializeClientStore = useClientStore((state) => state.initialize);
   const name = useClientStore((state) => state.name);
   const currentTeamID = useClientStore((state) => state.currentTeamID);
-  const [clientStoreInitialized, setClientStoreInitialized] =
-    useState<boolean>(false);
+  const clientStoreInitialized = useClientStore((state) => state.initialized);
 
   useEffect(() => {
     initializeClientStore();
-    setClientStoreInitialized(true);
   }, [initializeClientStore]);
 
   useEffect(() => {

@@ -7,6 +7,7 @@ interface ClientState {
   clientID: string | null;
   currentTeamID: string | null;
   initialize: () => void;
+  initialized: boolean;
   name: string | null;
   persist: () => void;
   storedTeams: StoredTeam[];
@@ -42,7 +43,10 @@ const useClientStore = create<ClientState>((set, get) => ({
     if (loadedName) {
       set({ name: loadedName });
     }
+
+    set({ initialized: true });
   },
+  initialized: false,
   name: null,
   persist: () => {
     localStorage.setItem('clientID', get().clientID || '');
