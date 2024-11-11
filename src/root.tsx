@@ -19,13 +19,13 @@ export default function Root() {
   }, [initializeClientStore]);
 
   useEffect(() => {
-    if (clientStoreInitialized && !name && !currentTeamID) {
+    if (clientStoreInitialized && !name) {
       navigate('/welcome');
     }
   }, [clientStoreInitialized, currentTeamID, name, navigate]);
 
   if (!initialized) {
-    return <span>Initializing...</span>
+    return <span>Initializing...</span>;
   }
 
   return (

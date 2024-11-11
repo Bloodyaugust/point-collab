@@ -4,6 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import pocketBase from '../lib/pocketbase';
 import { UserState } from '../types/userState';
 
+const USER_INACTIVE_INTERVAL = 1000 * 60 * 30; // 5 minutes
+
 type Props = {
   teamID: string;
 };
@@ -72,10 +74,16 @@ const useRealtimeUserStates = ({ teamID }: Props) => {
 
   useEffect(() => {
     if (!initialized && teamID) {
+      const userInactiveDate = new Date(
+        new Date().getTime() - USER_INACTIVE_INTERVAL,
+      )
+        .toISOString()
+        .replace('T', ' ');
+
       pocketBase
         .collection('user_states')
         .getList(0, 20, {
-          filter: `team="${teamID}"`,
+          filter: `team="${teamID}" && updated>="${userInactiveDate}"`,
         })
         .then((initialUserStates) => {
           setUserStates(initialUserStates.items);

@@ -12,6 +12,7 @@ export default function Welcome() {
   const name = useClientStore((state) => state.name);
   const setName = useClientStore((state) => state.setName);
   const clientID = useClientStore((state) => state.clientID);
+  const currentTeamID = useClientStore((state) => state.currentTeamID);
   const [newName, setNewName] = useState<string>(name || '');
   const [newTeamName, setNewTeamName] = useState<string>('');
   const [teamAction, setTeamAction] = useState<null | 'join' | 'start'>(null);
@@ -43,6 +44,13 @@ export default function Welcome() {
       setNewName(name);
     }
   }, [name]);
+
+  useEffect(() => {
+    if (currentTeamID) {
+      setTeamID(currentTeamID);
+      setTeamAction('join');
+    }
+  }, [currentTeamID]);
 
   return (
     <div className={styles.container}>
