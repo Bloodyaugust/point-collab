@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import PointButton from '../components/PointButton';
 import TeamInfo from '../components/TeamInfo';
@@ -36,6 +36,23 @@ export default function Participant({ team: initialTeam }: Props) {
     },
     [user],
   );
+
+  useEffect(() => {
+    if (user?.id) {
+      pocketBase
+        .collection('user_states')
+        .update(user.id, {
+          hasPointed: false,
+          pointSelected: -1,
+        })
+        .catch((e) =>
+          console.error(
+            'Error setting inital user_state properties after joining team: ',
+            e,
+          ),
+        );
+    }
+  }, [user?.id]);
 
   if (!user || !team) {
     return <span>Joining team...</span>;
