@@ -1,0 +1,9 @@
+.container {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  color: var(--orange-400);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 400;
+  padding: 24px;
+}

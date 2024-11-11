@@ -9,6 +9,7 @@ import Teams from './Teams/Teams.tsx';
 import Welcome from './Welcome/Welcome.tsx';
 import './index.css';
 import queryClient from './lib/QueryClient.ts';
+import Privacy from './privacy/Privacy.tsx';
 import Root from './root.tsx';
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: 'teams',
         element: <Teams />,
+      },
+      {
+        path: 'privacy',
+        element: <Privacy />,
       },
     ],
   },
