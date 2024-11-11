@@ -8,6 +8,7 @@ import styles from './root.module.css';
 
 export default function Root() {
   const navigate = useNavigate();
+  const initialized = useClientStore((state) => state.initialized);
   const initializeClientStore = useClientStore((state) => state.initialize);
   const name = useClientStore((state) => state.name);
   const currentTeamID = useClientStore((state) => state.currentTeamID);
@@ -22,6 +23,10 @@ export default function Root() {
       navigate('/welcome');
     }
   }, [clientStoreInitialized, currentTeamID, name, navigate]);
+
+  if (!initialized) {
+    return <span>Initializing...</span>
+  }
 
   return (
     <div className={styles.container}>

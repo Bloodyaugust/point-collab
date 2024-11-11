@@ -6,10 +6,13 @@ import useClientStore from '../hooks/UseClientStore';
 import pocketBase from '../lib/pocketbase';
 import Admin from './Admin';
 import Participant from './Participant';
+import { useEffect } from 'react';
 
 export default function Team() {
   const { teamID = '' } = useParams();
+  const addTeam = useClientStore((store) => store.addTeam);
   const clientID = useClientStore((store) => store.clientID);
+  const setCurrentTeamID = useClientStore((store) => store.setCurrentTeamID);
   const {
     isPending,
     error,
@@ -20,6 +23,21 @@ export default function Team() {
       return await pocketBase.collection('teams').getOne(teamID);
     },
   });
+
+  useEffect(() => {
+    if (teamID) {
+      setCurrentTeamID(teamID);
+    }
+  }, [teamID, setCurrentTeamID])
+
+  useEffect(() => {
+    if (team) {
+      addTeam({
+        id: team.id,
+        name: team.name
+      })
+    }
+  }, [team, addTeam])
 
   if (isPending) {
     return <span>Loading...</span>;

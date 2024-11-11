@@ -28,6 +28,17 @@ const useRealtimeUserStates = ({ teamID }: Props) => {
           });
         }
       }
+
+      if (
+        updatedUserState.action === 'delete' &&
+        updatedUserState.record.team === teamID
+      ) {
+        setUserStates((s) => {
+          return s.filter(
+            (userState) => userState.id !== updatedUserState.record.id,
+          );
+        });
+      }
     },
     [teamID],
   );

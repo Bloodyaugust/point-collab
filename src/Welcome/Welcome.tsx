@@ -10,6 +10,7 @@ import styles from './Welcome.module.css';
 export default function Welcome() {
   const navigate = useNavigate();
   const name = useClientStore((state) => state.name);
+  const setName = useClientStore((state) => state.setName);
   const clientID = useClientStore((state) => state.clientID);
   const [newName, setNewName] = useState<string>(name || '');
   const [newTeamName, setNewTeamName] = useState<string>('');
@@ -17,6 +18,8 @@ export default function Welcome() {
   const [teamID, setTeamID] = useState<string>('');
 
   const handleTeamAction = useCallback(async () => {
+    setName(newName);
+
     if (teamAction === 'join') {
       navigate(`/team/${teamID}`);
       return;
@@ -33,7 +36,7 @@ export default function Welcome() {
     } catch {
       console.log('There was an error creating the team.');
     }
-  }, [clientID, navigate, newTeamName, teamAction, teamID]);
+  }, [clientID, navigate, newTeamName, teamAction, teamID, newName, setName]);
 
   useEffect(() => {
     if (name) {
