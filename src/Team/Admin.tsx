@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
+import TeamInfo from '../components/TeamInfo';
 import UserStatus from '../components/UserStatus';
 import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
 import queryClient from '../lib/QueryClient';
@@ -94,10 +95,7 @@ export default function Admin({ team }: Props) {
             <Button text="Save" onClick={setTeamStoryID} />
           </div>
         </div>
-        <div className={styles.teamInfo}>
-          <span className={styles.teamID}>Team ID: {team.id}</span>
-          <span className={styles.teamLink}>Copy link to invite</span>
-        </div>
+        <TeamInfo team={team} />
       </div>
     </div>
   );

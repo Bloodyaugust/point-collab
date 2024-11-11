@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import PointButton from '../components/PointButton';
+import TeamInfo from '../components/TeamInfo';
 import UserStatus from '../components/UserStatus';
 import useGetOrCreateUserState from '../hooks/UseGetOrCreateUserState';
 import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
@@ -67,6 +68,7 @@ export default function Participant({ team }: Props) {
             />
           ))}
         </div>
+        <TeamInfo team={team} />
       </div>
     </div>
   );

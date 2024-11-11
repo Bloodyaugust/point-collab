@@ -27,12 +27,6 @@
   padding: 24px;
 }
 
-.teamInfo {
-  align-items: end;
-  display: flex;
-  flex-direction: column;
-}
-
 .teamStatus {
   display: flex;
   flex-direction: column;
