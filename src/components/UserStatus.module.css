@@ -6,11 +6,13 @@
   font-family: 'BellotaText', sans-serif;
   font-weight: 400;
   gap: 6px;
+  height: 40px;
 }
 
 .icon {
   color: var(--orange-300);
   font-size: 26px;
+  margin-right: 12px;
 }
 
 .pointSelected {

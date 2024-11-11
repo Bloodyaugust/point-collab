@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
 
 import Team from './Team/Team.tsx';
+import Teams from './Teams/Teams.tsx';
 import Welcome from './Welcome/Welcome.tsx';
 import './index.css';
 import queryClient from './lib/QueryClient.ts';
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: 'team/:teamID',
         element: <Team />,
+      },
+      {
+        path: 'teams',
+        element: <Teams />,
       },
     ],
   },

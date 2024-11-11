@@ -1,3 +1,15 @@
+.controls {
+  align-items: end;
+  color: var(--orange-400);
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 400;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
 .bar1 {
   background-color: var(--orange-200);
   height: 10px;
@@ -19,6 +31,7 @@
 }
 
 .inner {
+  align-items: end;
   display: flex;
   justify-content: space-between;
   margin: 32px 42px 0 42px;
