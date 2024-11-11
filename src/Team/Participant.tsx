@@ -1,12 +1,14 @@
 import { useCallback } from 'react';
 
-import Button from '../components/Button';
+import PointButton from '../components/PointButton';
 import UserStatus from '../components/UserStatus';
 import useGetOrCreateUserState from '../hooks/UseGetOrCreateUserState';
 import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
 import pocketBase from '../lib/pocketbase';
 import { Team } from '../types/team';
 import styles from './Participant.module.css';
+
+const points = [0, 1, 2, 3, 5, 8, 13, 21, -1];
 
 type Props = {
   team: Team;
@@ -43,69 +45,14 @@ export default function Participant({ team }: Props) {
           Currently Pointing: {team.storyID}
         </span>
         <div className={styles.pointGrid}>
-          <Button
-            text="0"
-            onClick={() => {
-              handleSetPoint(0);
-            }}
-            active={user.pointSelected === 0}
-          />
-          <Button
-            text="1"
-            onClick={() => {
-              handleSetPoint(1);
-            }}
-            active={user.pointSelected === 1}
-          />
-          <Button
-            text="2"
-            onClick={() => {
-              handleSetPoint(2);
-            }}
-            active={user.pointSelected === 2}
-          />
-          <Button
-            text="3"
-            onClick={() => {
-              handleSetPoint(3);
-            }}
-            active={user.pointSelected === 3}
-          />
-          <Button
-            text="5"
-            onClick={() => {
-              handleSetPoint(5);
-            }}
-            active={user.pointSelected === 5}
-          />
-          <Button
-            text="8"
-            onClick={() => {
-              handleSetPoint(8);
-            }}
-            active={user.pointSelected === 8}
-          />
-          <Button
-            text="13"
-            onClick={() => {
-              handleSetPoint(13);
-            }}
-            active={user.pointSelected === 13}
-          />
-          <Button
-            text="21"
-            onClick={() => {
-              handleSetPoint(21);
-            }}
-            active={user.pointSelected === 21}
-          />
-          <Button
-            text="☕"
-            onClick={() => {
-              handleSetPoint(-1);
-            }}
-            active={user.pointSelected === -1}
-          />
+          {points.map((point) => (
+            <PointButton
+              key={point}
+              handlePointClicked={handleSetPoint}
+              point={point}
+              selected={user.pointSelected === point}
+            />
+          ))}
         </div>
       </div>
       <div className={styles.teamStatusContainer}>
