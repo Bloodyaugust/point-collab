@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import pocketBase from '../lib/pocketbase';
 import { UserState } from '../types/userState';
 
-const USER_INACTIVE_INTERVAL = 1000 * 60 * 30; // 5 minutes
+const USER_INACTIVE_INTERVAL = 1000 * 60 * 30; // 30 minutes
 
 type Props = {
   teamID: string;
