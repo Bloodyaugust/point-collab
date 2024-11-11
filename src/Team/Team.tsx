@@ -55,5 +55,5 @@ export default function Team() {
     return <Admin team={team} />;
   }
 
-  return <Participant team={team} />;
+  return <Participant teamID={teamID} />;
 }

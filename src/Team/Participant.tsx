@@ -6,18 +6,19 @@ import UserStatus from '../components/UserStatus';
 import useGetOrCreateUserState from '../hooks/UseGetOrCreateUserState';
 import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
 import pocketBase from '../lib/pocketbase';
-import { Team } from '../types/team';
 import styles from './Participant.module.css';
+import useRealtimeTeam from '../hooks/UseRealtimeTeam';
 
 const points = [0, 1, 2, 3, 5, 8, 13, 21, -1];
 
 type Props = {
-  team: Team;
+  teamID: string;
 };
 
-export default function Participant({ team }: Props) {
-  const userStates = useRealtimeUserStates({ teamID: team.id });
-  const user = useGetOrCreateUserState({ teamID: team.id, userStates });
+export default function Participant({ teamID }: Props) {
+  const userStates = useRealtimeUserStates({ teamID });
+  const team = useRealtimeTeam({teamID})
+  const user = useGetOrCreateUserState({ teamID, userStates });
   const handleSetPoint = useCallback(
     (point: number) => {
       if (user) {
@@ -35,7 +36,7 @@ export default function Participant({ team }: Props) {
     [user],
   );
 
-  if (!user) {
+  if (!user || !team) {
     return <span>Joining team...</span>;
   }
 

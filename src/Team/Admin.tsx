@@ -22,6 +22,7 @@ export default function Admin({ team }: Props) {
       const updates = userStates.map((userState) =>
         pocketBase.collection('user_states').update(userState.id, {
           hasPointed: false,
+          pointSelected: -1,
         }),
       );
 
