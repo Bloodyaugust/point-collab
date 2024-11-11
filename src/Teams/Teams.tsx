@@ -14,6 +14,7 @@ export default function Teams() {
   const storedTeams = useClientStore((store) => store.storedTeams);
   const [adminTeams, setAdminTeams] = useState<Team[]>([]);
   const [joiningTeamID, setJoiningTeamID] = useState<string>('');
+  const [creatingTeamName, setCreatingTeamName] = useState<string>('');
 
   useEffect(() => {
     if (clientID) {
@@ -48,6 +49,37 @@ export default function Teams() {
             onClick={() => {
               if (joiningTeamID) {
                 navigate(`/team/${joiningTeamID}`);
+              }
+            }}
+          />
+        </div>
+      </div>
+      <div className={styles.joinTeam}>
+        <div className={styles.heading}>
+          <h2>Create a new Team</h2>
+          <hr />
+        </div>
+        <div className={styles.joinTeamControls}>
+          <div className={styles.joinTeamID}>
+            <label>Team Name</label>
+            <Input
+              placeholder="Team Name"
+              onChange={setCreatingTeamName}
+              value={creatingTeamName}
+            />
+          </div>
+          <Button
+            text="Create Team"
+            onClick={() => {
+              if (creatingTeamName) {
+                pocketBase
+                  .collection('teams')
+                  .create({
+                    name: creatingTeamName,
+                    adminClientID: clientID,
+                  })
+                  .then((team) => navigate(`/team/${team.id}`))
+                  .catch((e) => console.error('Error creating team: ', e));
               }
             }}
           />

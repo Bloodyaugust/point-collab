@@ -14,7 +14,7 @@ export default function TeamInfo({ team }: Props) {
       return null;
     }
 
-    return `https://point-collab-production.up.railway.app/team/${team.id}`;
+    return `${window.location.origin}/team/${team.id}`;
   }, [team]);
   const handleCopyInviteLinkClick = useCallback(() => {
     if (inviteLink) {
