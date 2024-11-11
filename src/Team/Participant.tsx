@@ -4,10 +4,10 @@ import PointButton from '../components/PointButton';
 import TeamInfo from '../components/TeamInfo';
 import UserStatus from '../components/UserStatus';
 import useGetOrCreateUserState from '../hooks/UseGetOrCreateUserState';
+import useRealtimeTeam from '../hooks/UseRealtimeTeam';
 import useRealtimeUserStates from '../hooks/UseRealtimeUserStates';
 import pocketBase from '../lib/pocketbase';
 import styles from './Participant.module.css';
-import useRealtimeTeam from '../hooks/UseRealtimeTeam';
 
 const points = [0, 1, 2, 3, 5, 8, 13, 21, -1];
 
@@ -17,7 +17,7 @@ type Props = {
 
 export default function Participant({ teamID }: Props) {
   const userStates = useRealtimeUserStates({ teamID });
-  const team = useRealtimeTeam({teamID})
+  const team = useRealtimeTeam({ teamID });
   const user = useGetOrCreateUserState({ teamID, userStates });
   const handleSetPoint = useCallback(
     (point: number) => {
