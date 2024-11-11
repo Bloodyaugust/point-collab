@@ -1,0 +1,58 @@
+:root {
+  --deep-blue: #23293c;
+  --link: #17348e;
+  --orange-100: #fff5e5;
+  --orange-200: #e9995c;
+  --orange-300: #e46f3f;
+  --orange-400: #96483a;
+}
+
+@font-face {
+  font-family: 'Calistoga';
+  src: local('Calistoga-Regular'), url('./assets/Calistoga-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'BellotaText';
+  src: local('BellotaText-Regular'), url('./assets/BellotaText-Regular.ttf');
+}
+
+body {
+  background-color: var(--orange-400);
+  margin: 0;
+  min-height: 100vh;
+}
+
+html {
+  font-family: system-ui, sans-serif;
+  color: white;
+  background: var(--orange-400);
+}
+
+h1 {
+  color: var(--orange-400);
+  font-size: 48px;
+  font-family: 'Calistoga', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+h2 {
+  color: var(--orange-300);
+  font-size: 26px;
+  font-family: 'Calistoga', sans-serif;
+  font-weight: 400;
+  margin: 0;
+}
+
+hr {
+  border-color: var(--orange-200);
+  border-width: 0;
+  border-bottom-width: 1px;
+  margin: 0;
+  width: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}

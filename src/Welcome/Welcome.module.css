@@ -1,0 +1,32 @@
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 24px;
+}
+
+.container {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.innerContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 600px;
+}
+
+.label {
+  color: var(--orange-400);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}

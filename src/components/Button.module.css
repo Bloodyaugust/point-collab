@@ -1,0 +1,14 @@
+.button {
+  background-color: var(--orange-400);
+  border: none;
+  border-radius: 5px;
+  color: var(--orange-100);
+  cursor: pointer;
+  font-size: 26px;
+  font-family: 'Calistoga', sans-serif;
+  font-weight: 400;
+  padding: 32px;
+}
+.button.active {
+  background-color: var(--orange-300);
+}

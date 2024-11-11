@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  gap: 32px;
+}
+
+.currentlyPointing {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}
+
+.pointGrid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.pointGridContainer {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
+  gap: 24px;
+  padding: 24px;
+}
+
+.teamStatus {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.teamStatusContainer {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 24px;
+}

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import styles from './HourglassSpinner.module.css';
 
 type Props = {
-  color: string | undefined;
+  color?: string;
 };
 
 export default function HourglassSpinner({ color = 'white' }: Props) {

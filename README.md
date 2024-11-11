@@ -6,7 +6,7 @@ No accounts, no ads, no nonsense. Just go to the site, enter your name, join or 
 
 ## Tech Stack
 
-Point Collab uses [Astro](https://astro.build/) as the primary server, which uses Vite under the hood for building. It uses React for all SPA functionality. Finally, data persistence and realtime features that make the app work are done with [Pocketbase](https://pocketbase.io/).
+Point Collab uses [Vite](https://vite.dev/) as the build system. It uses React for all SPA functionality. Finally, data persistence and realtime features that make the app work are done with [Pocketbase](https://pocketbase.io/).
 
 ## Design Choices
 
@@ -24,7 +24,7 @@ You will also need an accessible and correctly-configured Pocketbase instance (`
 
 ## Deployment
 
-Any host that can support running Astro in SSR mode with node should work. Additionally, a host that can run either the Pocketbase executable _or_ run/host a Dockerfile _and_ offers persistent storage is necessary.
+Deploy the result of `npm run build` to your static file server of choice. Additionally, a host that can run either the Pocketbase executable _or_ run/host a Dockerfile _and_ offers persistent storage is necessary.
 
 The "canonical" site built from pushes to `main` on this repository runs on [Railway](https://railway.app/), and uses their "Persistent Volumes" feature, as well as [this dockerfile](https://github.com/Bloodyaugust/point-collab-pocketbase).
 

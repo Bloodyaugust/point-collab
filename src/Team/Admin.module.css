@@ -1,0 +1,93 @@
+.container {
+  display: flex;
+  gap: 32px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.controlsContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.controlsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.controlBoard {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  padding: 24px;
+}
+
+.currentlyPointing {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}
+
+.label {
+  color: var(--orange-400);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}
+
+.statusBoard {
+  background-color: var(--orange-100);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
+  gap: 24px;
+  padding: 24px;
+}
+
+.statusWindow {
+  background-color: white;
+  border: 1px solid var(--orange-300);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+}
+
+.teamInfo {
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+}
+
+.teamID {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}
+
+.teamLink {
+  color: var(--link);
+  font-size: 18px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}
+
+.waitingUsers {
+  color: var(--orange-300);
+  font-size: 20px;
+  font-family: 'BellotaText', sans-serif;
+  font-weight: 700;
+}

@@ -1,0 +1,57 @@
+.pointButton {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--orange-100);
+  cursor: pointer;
+  display: flex;
+  font-size: 72px;
+  font-family: 'Calistoga', sans-serif;
+  height: 170px;
+  justify-content: center;
+  perspective: 1000px;
+  width: 100%;
+}
+
+.pointButton .icon {
+  font-size: 72px;
+}
+
+.pointButton.pointButtonSelected .pointButtonInner {
+  transform: rotateY(180deg);
+}
+
+.selected {
+  background-color: var(--orange-300);
+}
+
+.pointButtonInner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+
+.pointButtonContent,
+.pointButtonSelectedContent {
+  align-items: center;
+  border-radius: 25px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.pointButtonContent {
+  background: var(--orange-300);
+  transform: rotateY(180deg);
+}
+
+.pointButtonSelectedContent {
+  background: var(--orange-400);
+}

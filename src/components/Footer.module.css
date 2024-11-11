@@ -1,0 +1,10 @@
+.footer {
+  background-color: var(--orange-100);
+  color: var(--orange-400);
+  display: flex;
+  font-size: 20px;
+  gap: 24px;
+  grid-area: footer;
+  justify-content: center;
+  padding: 24px;
+}
