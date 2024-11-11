@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useMatch, useNavigate } from 'react-router-dom';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -8,6 +8,8 @@ import styles from './root.module.css';
 
 export default function Root() {
   const navigate = useNavigate();
+  const navToTeam = useMatch('/team/:id');
+  const navToTeams = useMatch('/teams');
   const initialized = useClientStore((state) => state.initialized);
   const initializeClientStore = useClientStore((state) => state.initialize);
   const name = useClientStore((state) => state.name);
@@ -21,8 +23,21 @@ export default function Root() {
   useEffect(() => {
     if (clientStoreInitialized && !name) {
       navigate('/welcome');
+    } else if (!navToTeam && !navToTeams) {
+      if (currentTeamID) {
+        navigate(`/team/${currentTeamID}`);
+      } else {
+        navigate(`/teams`);
+      }
     }
-  }, [clientStoreInitialized, currentTeamID, name, navigate]);
+  }, [
+    clientStoreInitialized,
+    currentTeamID,
+    name,
+    navigate,
+    navToTeam,
+    navToTeams,
+  ]);
 
   if (!initialized) {
     return <span>Initializing...</span>;
