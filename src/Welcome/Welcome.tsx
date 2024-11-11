@@ -35,7 +35,7 @@ export default function Welcome() {
 
       navigate(`/team/${newTeam.id}`);
     } catch {
-      console.log('There was an error creating the team.');
+      console.error('There was an error creating the team.');
     }
   }, [clientID, navigate, newTeamName, teamAction, teamID, newName, setName]);
 

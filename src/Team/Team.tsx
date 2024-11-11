@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useQuery } from '@tanstack/react-query';
@@ -6,7 +7,6 @@ import useClientStore from '../hooks/UseClientStore';
 import pocketBase from '../lib/pocketbase';
 import Admin from './Admin';
 import Participant from './Participant';
-import { useEffect } from 'react';
 
 export default function Team() {
   const { teamID = '' } = useParams();
@@ -28,16 +28,16 @@ export default function Team() {
     if (teamID) {
       setCurrentTeamID(teamID);
     }
-  }, [teamID, setCurrentTeamID])
+  }, [teamID, setCurrentTeamID]);
 
   useEffect(() => {
     if (team) {
       addTeam({
         id: team.id,
-        name: team.name
-      })
+        name: team.name,
+      });
     }
-  }, [team, addTeam])
+  }, [team, addTeam]);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -55,5 +55,5 @@ export default function Team() {
     return <Admin team={team} />;
   }
 
-  return <Participant teamID={teamID} />;
+  return <Participant team={team} />;
 }
