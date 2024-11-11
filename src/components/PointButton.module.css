@@ -13,6 +13,10 @@
   width: 100%;
 }
 
+.pointButton .icon {
+  font-size: 72px;
+}
+
 .pointButton.pointButtonSelected .pointButtonInner {
   transform: rotateY(180deg);
 }

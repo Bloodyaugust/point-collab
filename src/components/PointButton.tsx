@@ -27,7 +27,7 @@ export default function PointButton({
         <span
           className={clsx(
             styles.pointButtonContent,
-            point === -1 && 'material-icons',
+            point === -1 && ['material-symbols-outlined', styles.icon],
           )}
         >
           {point === -1 ? 'coffee' : point}
@@ -35,7 +35,7 @@ export default function PointButton({
         <span
           className={clsx(
             styles.pointButtonSelectedContent,
-            point === -1 && 'material-icons',
+            point === -1 && ['material-symbols-outlined', styles.icon],
           )}
         >
           {point === -1 ? 'coffee' : point}
