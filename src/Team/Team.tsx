@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import useClientStore from '../hooks/UseClientStore';
 import pocketBase from '../lib/pocketbase';
 import Admin from './Admin';
+import Participant from './Participant';
 
 export default function Team() {
   const { teamID = '' } = useParams();
@@ -36,5 +37,5 @@ export default function Team() {
     return <Admin team={team} />;
   }
 
-  return <span>Team ID: {team.id}</span>;
+  return <Participant team={team} />;
 }
