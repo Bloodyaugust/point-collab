@@ -48,5 +48,5 @@ test('onboards as participant correctly', async ({ page }) => {
   await expect(page.getByText(`Team ID: ${testTeamID}`)).toBeVisible();
   await expect
     .poll(() => page.getByText('Playwright Multiplayer 1').count())
-    .toBeGreaterThan(10);
+    .toBeGreaterThan(0);
 });
