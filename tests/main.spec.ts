@@ -111,3 +111,55 @@ test('admin and participant stay in sync through cycles of usage', async ({
 
   await secondContext.close();
 });
+
+test('system scales to many users', async ({ page, browser }) => {
+  await page.goto(`/`);
+
+  await page.getByLabel('What is your name?').fill('Playwright 1');
+  await page.getByRole('button', { name: 'Start a new team' }).click();
+  await page.getByLabel('Enter your team name').fill('Playwright Test');
+  await page.getByRole('button', { name: 'Start Team!' }).click();
+
+  const testTeamID = await page.getByTestId('teamID').textContent();
+
+  const participantContextPromises = [...Array(10).keys()].map(() =>
+    browser.newContext(),
+  );
+  const participantContexts = await Promise.all(participantContextPromises);
+
+  const participantPagePromises = participantContexts.map((context) =>
+    context.newPage(),
+  );
+  const participantPages = await Promise.all(participantPagePromises);
+
+  await Promise.all(
+    participantPages.map((participantPage) => participantPage.goto('/')),
+  );
+
+  await Promise.all(
+    participantPages.map((participantPage, index) =>
+      participantPage.evaluate((index) => {
+        localStorage.setItem('clientID', `playwright-test-${index}`);
+        localStorage.setItem('name', `Playwright ${index}`);
+      }, index),
+    ),
+  );
+
+  await Promise.all(
+    participantPages.map((participantPage) =>
+      participantPage.goto(`/team/${testTeamID}`),
+    ),
+  );
+
+  await Promise.all(
+    participantPages.map((participantPage) =>
+      participantPage.getByRole('button', { name: '3 3' }).click(),
+    ),
+  );
+
+  await expect.poll(() => page.getByText('check_circle').count()).toBe(10);
+
+  await Promise.all(
+    participantContexts.map((participantContext) => participantContext.close()),
+  );
+});
