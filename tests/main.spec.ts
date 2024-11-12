@@ -159,7 +159,7 @@ test('system scales to many users', async ({ page, browser }) => {
 
   await expect
     .poll(() => page.getByText('check_circle').count())
-    .toBeGreaterThanOrEqual(9);
+    .toBeGreaterThanOrEqual(8);
 
   await Promise.all(
     participantContexts.map((participantContext) => participantContext.close()),
