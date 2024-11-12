@@ -37,8 +37,9 @@ export default function Teams() {
         </div>
         <div className={styles.joinTeamControls}>
           <div className={styles.joinTeamID}>
-            <label>Team ID</label>
+            <label htmlFor="joiningTeamID">Team ID</label>
             <Input
+              id="joiningTeamID"
               placeholder="Team ID"
               onChange={setJoiningTeamID}
               value={joiningTeamID}
@@ -61,8 +62,9 @@ export default function Teams() {
         </div>
         <div className={styles.joinTeamControls}>
           <div className={styles.joinTeamID}>
-            <label>Team Name</label>
+            <label htmlFor="creatingTeamName">Team Name</label>
             <Input
+              id="creatingTeamName"
               placeholder="Team Name"
               onChange={setCreatingTeamName}
               value={creatingTeamName}
