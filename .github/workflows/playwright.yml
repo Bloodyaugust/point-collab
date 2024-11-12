@@ -17,6 +17,8 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - name: Run Vite Preview
+        run: npm run preview
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
