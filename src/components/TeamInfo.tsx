@@ -26,7 +26,7 @@ export default function TeamInfo({ team }: Props) {
     <div className={styles.teamInfo}>
       <div>
         <span className={styles.teamID}>Team ID: </span>
-        {team.id}
+        <span data-testid="teamID">{team.id}</span>
       </div>
       <div className={styles.link} onClick={handleCopyInviteLinkClick}>
         <span className={clsx('material-symbols-outlined', styles.icon)}>
