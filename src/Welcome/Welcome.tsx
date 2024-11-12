@@ -60,8 +60,11 @@ export default function Welcome() {
           <hr />
         </div>
         <div className={styles.block}>
-          <label className={styles.label}>What is your name?</label>
+          <label className={styles.label} htmlFor="newName">
+            What is your name?
+          </label>
           <Input
+            id="newName"
             placeholder="Enter name you'd like displayed to the room"
             onChange={(v) => setNewName(v)}
             value={newName}
@@ -86,8 +89,11 @@ export default function Welcome() {
         )}
         {teamAction === 'join' && newName && (
           <div className={styles.block}>
-            <label className={styles.label}>Enter your Team ID</label>
+            <label className={styles.label} htmlFor="newTeamID">
+              Enter your Team ID
+            </label>
             <Input
+              id="newTeamID"
               placeholder="Team ID"
               onChange={(v) => setTeamID(v)}
               value={teamID}
@@ -96,8 +102,11 @@ export default function Welcome() {
         )}
         {teamAction === 'start' && newName && (
           <div className={styles.block}>
-            <label className={styles.label}>Enter your Team Name</label>
+            <label className={styles.label} htmlFor="newTeamName">
+              Enter your Team Name
+            </label>
             <Input
+              id="newTeamName"
               placeholder="Team Name"
               onChange={(v) => setNewTeamName(v)}
               value={newTeamName}

@@ -22,6 +22,12 @@ This means that a user, especially admins, will have to consistently use the sam
 
 You will also need an accessible and correctly-configured Pocketbase instance (`>=v0.20` for realtime support) for data persistence and realtime. It should be easy to configure a new instance based on the `src/types/` directory.
 
+## Testing
+
+`npm run test`
+
+Testing is handled with [Playwright](https://playwright.dev/). Multiplayer features are tested. Repo is configured to run tests in Github Actions.
+
 ## Deployment
 
 Deploy the result of `npm run build` to your static file server of choice. Additionally, a host that can run either the Pocketbase executable _or_ run/host a Dockerfile _and_ offers persistent storage is necessary.
