@@ -87,8 +87,11 @@ export default function Admin({ team }: Props) {
             <hr />
           </div>
           <div className={styles.controlsContent}>
-            <label className={styles.label}>What are you pointing?</label>
+            <label className={styles.label} htmlFor="newStoryID">
+              What are you pointing?
+            </label>
             <Input
+              id="newStoryID"
               placeholder="Paste link or ticket/story ID"
               onChange={setNewStoryId}
               value={newStoryID}
