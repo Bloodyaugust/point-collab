@@ -4,6 +4,8 @@ on:
     branches: [main, development]
   pull_request:
     branches: [main, development]
+env:
+  VITE_POCKETBASE_URL: https://pocketbase-dev-5e0b.up.railway.app
 jobs:
   test:
     timeout-minutes: 60
