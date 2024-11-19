@@ -47,7 +47,7 @@ export default function Admin({ team }: Props) {
   }, [team.id, newStoryID]);
   const averagePoints: string = useMemo(() => {
     if (!userStates || userStates.length === 0) {
-      return -1;
+      return '-1';
     }
 
     const votesByPoint = userStates.reduce(
@@ -79,7 +79,7 @@ export default function Admin({ team }: Props) {
       (point) => votesByPoint[point] === votesByPoint[mostVotedPoint],
     );
 
-    return pointsWithSameVotes.length > 1 ? 'TIE' : mostVotedPoint;
+    return pointsWithSameVotes.length > 1 ? 'TIE' : `${mostVotedPoint}`;
   }, [userStates]);
 
   useEffect(() => {
@@ -98,7 +98,7 @@ export default function Admin({ team }: Props) {
             {team.state === TeamState.REVEALED && (
               <span className={styles.mostPointed}>
                 Most pointed:{' '}
-                {averagePoints === -1 ? (
+                {averagePoints === '-1' ? (
                   <span className="material-symbols-outlined">coffee</span>
                 ) : (
                   <span>{averagePoints}</span>
