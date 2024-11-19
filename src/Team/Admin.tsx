@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import Button from '../components/Button';
 import Input from '../components/Input';
@@ -45,6 +45,42 @@ export default function Admin({ team }: Props) {
 
     await queryClient.invalidateQueries({ queryKey: ['team', team.id] });
   }, [team.id, newStoryID]);
+  const averagePoints: string = useMemo(() => {
+    if (!userStates || userStates.length === 0) {
+      return -1;
+    }
+
+    const votesByPoint = userStates.reduce(
+      (prev: Record<string, number>, user) => {
+        const point = user.pointSelected;
+
+        if (prev[point] !== undefined) {
+          prev[point] = prev[point] + 1;
+        } else {
+          prev[point] = 1;
+        }
+
+        return prev;
+      },
+      {} as Record<string, number>,
+    );
+
+    let mostVotedPoint = -1;
+    for (const key in votesByPoint) {
+      if (
+        votesByPoint[key] !== undefined &&
+        votesByPoint[key] > mostVotedPoint
+      ) {
+        mostVotedPoint = parseInt(key, 10);
+      }
+    }
+
+    const pointsWithSameVotes = Object.keys(votesByPoint).filter(
+      (point) => votesByPoint[point] === votesByPoint[mostVotedPoint],
+    );
+
+    return pointsWithSameVotes.length > 1 ? 'TIE' : mostVotedPoint;
+  }, [userStates]);
 
   useEffect(() => {
     setNewStoryId(team.storyID);
@@ -57,7 +93,19 @@ export default function Admin({ team }: Props) {
           Currently Pointing: {team.storyID}
         </span>
         <div>
-          <h2>Status</h2>
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+            <h2 style={{ display: 'inline' }}>Status</h2>
+            {team.state === TeamState.REVEALED && (
+              <span className={styles.mostPointed}>
+                Most pointed:{' '}
+                {averagePoints === -1 ? (
+                  <span className="material-symbols-outlined">coffee</span>
+                ) : (
+                  <span>{averagePoints}</span>
+                )}
+              </span>
+            )}
+          </div>
           <div className={styles.statusWindow}>
             {userStates.length === 0 && (
               <span className={styles.waitingUsers}>Waiting for users...</span>
